@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import PlayPauseButton from "./PlayPauseButton";
+import ResetButton from "./ResetButton";
 
 type Props = {}
 
 const Timer = () => {
     const defaultMinute = 0;
     const defaultSeconds = 5;
+    const initialTime = defaultMinute*60 + defaultSeconds
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [timeRemaining, setTimeRemaining] = useState<number>(defaultMinute*60 + defaultSeconds);
+    const [timeRemaining, setTimeRemaining] = useState<number>(initialTime);
     
     const intervalRef = useRef<number | null>(null);
     //const [minutes, setMinutes] = useState<number>(25);
@@ -22,15 +24,14 @@ const Timer = () => {
         }
     }, [isPlaying])
 
+
     function startTimer(){
         if (intervalRef.current !== null) return;
 
         intervalRef.current = setInterval(()=>{
             setTimeRemaining((timeRemaining)=> {
                 if(timeRemaining<=0){
-                    clearInterval(intervalRef.current!)  //jsp si c'est legit
-                    intervalRef.current = null;
-                    setIsPlaying(false);
+                    resetTimer();
                     return 0;
             }
             return timeRemaining-1;
@@ -41,6 +42,17 @@ const Timer = () => {
     function pauseTimer(){
         clearInterval(intervalRef.current!);
     }
+
+    function resetTimer(){
+        //Ajouter un composant Pop-up de confirmation
+        clearInterval(intervalRef.current!)  
+        intervalRef.current = null;
+        setIsPlaying(false);
+        setTimeRemaining(initialTime);
+    }
+
+
+
     
     return(
         <section id="home" className="gap-16 bg-gray-20 z-10 py-10 md:h-full md:pb-0">
@@ -48,6 +60,7 @@ const Timer = () => {
                 <p>{`${String(Math.floor(timeRemaining / 60)).padStart(2, "0")} :
                 ${String(timeRemaining % 60).padStart(2, "0")}`}</p>
                 <PlayPauseButton isPlaying={isPlaying} setIsPlaying = {setIsPlaying}></PlayPauseButton>
+                <ResetButton resetTimer={ resetTimer}></ResetButton>
            </div>
         </section>
     )
