@@ -1,6 +1,7 @@
 import Navbar from "@/scenes/navbar/navbar";
 import { useEffect, useState } from "react";
 import { SelectedPage } from "@/shared/types"
+import Timer from "./scenes/timer/timer";
 
 
 
@@ -24,14 +25,16 @@ function App() {
   }, []);
 
   return (
-    <div className="app bg-gray-20 h-full w-full font-dmsans text-gray-500">
+    <div className="app bg-gray-20 min-h-screen w-full font-dmsans text-gray-500">
       <Navbar
         isTopOfPage = {isTopOfPage}
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage}
-
       />
+      <Timer></Timer>
     </div>
+      
+    
   )
 }
 
