@@ -8,7 +8,7 @@ type Props = {
 const PlayPauseButton = ({isPlaying, setIsPlaying}: Props) => {
   
   return (
-    <button className="bg-secondary-500 p-10 rounded-md"
+    <button className="bg-secondary-500 p-10 rounded-md "
     onClick={()=> setIsPlaying(!isPlaying)}
     >
         {isPlaying ? 
