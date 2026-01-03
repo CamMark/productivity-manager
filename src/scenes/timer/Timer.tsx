@@ -52,8 +52,6 @@ const Timer = () => {
     }
 
 
-
-    
     return(
         <section id="home" className="gap-16 bg-gray-20 z-10 py-10 md:h-full md:pb-0">
             <div className="mt-32 md:flex mx-auto w-5/6 items-center justify-center md:h-5/6">
